@@ -38,3 +38,13 @@ variable "db_subnets" {
   description = "List of database subnets"
   type        = list(string)
 }
+
+variable "queues" {
+  description = "List of SQS queues to create including their dead-letter queues"
+  type        = list(string)
+}
+
+variable "api_port" {
+  description = "The port on which the API will listen"
+  type        = number
+}

@@ -176,3 +176,9 @@ resource "aws_route_table_association" "rtta_private_db_itmentorsoft" {
   ]
 }
 
+output "vpc_id" { value = aws_vpc.vpcitmentorsoft.id }
+output "vpc_cidr" { value = aws_vpc.vpcitmentorsoft.cidr_block }
+output "app_subnet_ids" { value = aws_subnet.sbnapp[*].id }
+output "database_subnet_ids" { value = aws_subnet.sbndb[*].id }
+output "public_subnet_ids" { value = aws_subnet.sbnpublic[*].id }
+
