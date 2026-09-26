@@ -22,3 +22,8 @@ variable "api_port" {
   description = "The port for the API"
   type        = number
 }
+
+variable "tags" {
+  description = "A map of tags to apply to resources"
+  type        = map(string)
+}

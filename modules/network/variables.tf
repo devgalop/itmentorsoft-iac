@@ -38,3 +38,8 @@ variable "availability_zones" {
   description = "The availability zones for the VPC"
   type        = list(string)
 }
+
+variable "tags" {
+  description = "A map of tags to apply to resources"
+  type        = map(string)
+}

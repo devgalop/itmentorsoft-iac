@@ -4,20 +4,12 @@ resource "aws_vpc" "vpcitmentorsoft" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = { 
-    Name = "${terraform.workspace}-vpc-${var.project}-001",
-    Environment = terraform.workspace,
-    Owner = var.owner
-  }
+  tags = var.tags
 }
 
 resource "aws_internet_gateway" "igwitmentorsoft" {
   vpc_id = aws_vpc.vpcitmentorsoft.id
-  tags   = { 
-    Name = "${terraform.workspace}-igw-${var.project}-001",
-    Environment = terraform.workspace,
-    Owner = var.owner
-  }
+  tags   = var.tags
   depends_on = [
     aws_vpc.vpcitmentorsoft
  ]
@@ -31,12 +23,7 @@ resource "aws_subnet" "sbnpublic" {
   availability_zone       = var.availability_zones[count.index]
   map_public_ip_on_launch = true
 
-  tags = { 
-    Name = "${terraform.workspace}-sbn-${var.project}-public-00${count.index + 1}",
-    Environment = terraform.workspace,
-    Owner = var.owner,
-    Tier = "public" 
-  }
+  tags = var.tags
   depends_on = [
     aws_vpc.vpcitmentorsoft
   ]
@@ -49,12 +36,7 @@ resource "aws_subnet" "sbnapp" {
   cidr_block        = var.app_subnets[count.index]
   availability_zone = var.availability_zones[count.index]
 
-  tags = { 
-    Name = "${terraform.workspace}-sbn-${var.project}-app-00${count.index + 1}",
-    Environment = terraform.workspace,
-    Owner = var.owner,
-    Tier = "private-app" 
-  }
+  tags = var.tags
   depends_on = [
     aws_vpc.vpcitmentorsoft
   ]
@@ -67,12 +49,7 @@ resource "aws_subnet" "sbndb" {
   cidr_block        = var.db_subnets[count.index]
   availability_zone = var.availability_zones[count.index]
 
-  tags = { 
-    Name = "${terraform.workspace}-sbn-${var.project}-db-00${count.index + 1}",
-    Environment = terraform.workspace,
-    Owner = var.owner,
-    Tier = "private-db" 
-  }
+  tags = var.tags
   depends_on = [
     aws_vpc.vpcitmentorsoft
   ]
@@ -82,11 +59,7 @@ resource "aws_eip" "eipitmentorsoft" {
   count  = 1
   domain = "vpc"
 
-  tags = { 
-    Name = "${terraform.workspace}-eip-${var.project}-nat-00${count.index + 1}",
-    Environment = terraform.workspace,
-    Owner = var.owner
-  }
+  tags = var.tags
 }
 
 resource "aws_nat_gateway" "natitmentorsoft" {
@@ -95,11 +68,7 @@ resource "aws_nat_gateway" "natitmentorsoft" {
   allocation_id = aws_eip.eipitmentorsoft[count.index].id
   subnet_id     = aws_subnet.sbnpublic[count.index].id
 
-  tags = { 
-    Name = "${terraform.workspace}-nat-${var.project}-00${count.index + 1}",
-    Environment = terraform.workspace,
-    Owner = var.owner
-  }
+  tags = var.tags
   depends_on = [aws_internet_gateway.igwitmentorsoft]
 }
 
@@ -111,11 +80,7 @@ resource "aws_route_table" "rttpublic_itmentorsoft" {
     gateway_id = aws_internet_gateway.igwitmentorsoft.id
   }
 
-  tags = {
-    Name = "${terraform.workspace}-rtt-${var.project}-public-001",
-    Environment = terraform.workspace,
-    Owner = var.owner
-  }
+  tags = var.tags
   depends_on = [
     aws_internet_gateway.igwitmentorsoft
   ]
@@ -138,11 +103,7 @@ resource "aws_route_table" "rttprivate_app_itmentorsoft" {
     nat_gateway_id = aws_nat_gateway.natitmentorsoft[0].id
   }
 
-  tags = {
-    Name = "${terraform.workspace}-rtt-${var.project}-private-app-001",
-    Environment = terraform.workspace,
-    Owner = var.owner
-  }
+  tags = var.tags
   depends_on = [
     aws_nat_gateway.natitmentorsoft
   ]
@@ -160,11 +121,7 @@ resource "aws_route_table_association" "rtta_private_app_itmentorsoft" {
 resource "aws_route_table" "rttprivate_db_itmentorsoft" {
   vpc_id = aws_vpc.vpcitmentorsoft.id
 
-  tags = {
-    Name = "${terraform.workspace}-rtt-${var.project}-private-db-001",
-    Environment = terraform.workspace,
-    Owner = var.owner
-  }
+  tags = var.tags
 }
 
 resource "aws_route_table_association" "rtta_private_db_itmentorsoft" {

@@ -48,3 +48,13 @@ variable "api_port" {
   description = "The port on which the API will listen"
   type        = number
 }
+
+variable "tags" {
+  description = "A map of tags to apply to resources"
+  type        = map(string)
+  default     = {
+    Environment = terraform.workspace
+    Owner       = var.owner
+    Project     = var.project
+  }
+}

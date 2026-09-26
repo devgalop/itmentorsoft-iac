@@ -6,11 +6,7 @@ resource "aws_sqs_queue" "dlq" {
   message_retention_seconds = 259200
   sqs_managed_sse_enabled  = true
 
-  tags = {
-    Name = "${terraform.workspace}-queue-${var.project}-${each.value}-dlq"
-    Environment = terraform.workspace
-    Owner = var.owner
-  }
+  tags = var.tags
 }
 
 resource "aws_sqs_queue" "queue" {
@@ -27,9 +23,5 @@ resource "aws_sqs_queue" "queue" {
     maxReceiveCount     = 3
   })
 
-  tags = {
-    Name = "${terraform.workspace}-queue-${var.project}-${each.value}"
-    Environment = terraform.workspace
-    Owner = var.owner
-  }
+  tags = var.tags
 }

@@ -20,11 +20,7 @@ resource "aws_security_group" "alb" {
     cidr_blocks = [var.vpc_cidr]
   }
 
-  tags = {
-    Name = "${terraform.workspace}-sg-${var.project}-alb-001",
-    Environment = terraform.workspace,
-    Owner = var.owner
-  }
+  tags = var.tags
 }
 
 resource "aws_security_group" "vpc_link" {
@@ -39,11 +35,7 @@ resource "aws_security_group" "vpc_link" {
     cidr_blocks = [var.vpc_cidr]
   }
 
-  tags = {
-    Name = "${terraform.workspace}-sg-${var.project}-vpc-link-001",
-    Environment = terraform.workspace,
-    Owner = var.owner
-  }
+  tags = var.tags
 }
 
 resource "aws_security_group" "ecs_tasks" {
@@ -66,11 +58,7 @@ resource "aws_security_group" "ecs_tasks" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name = "${terraform.workspace}-sg-${var.project}-ecs-tasks-001",
-    Environment = terraform.workspace,
-    Owner = var.owner
-  }
+  tags = var.tags
 }
 
 resource "aws_security_group" "rds" {
@@ -91,11 +79,7 @@ resource "aws_security_group" "rds" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  tags = {
-    Name = "${terraform.workspace}-sg-${var.project}-rds-001",
-    Environment = terraform.workspace,
-    Owner = var.owner
-  }
+  tags = var.tags
 }
 
 resource "aws_security_group" "cache" {
@@ -116,11 +100,7 @@ resource "aws_security_group" "cache" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  tags = {
-    Name = "${terraform.workspace}-sg-${var.project}-cache-001",
-    Environment = terraform.workspace,
-    Owner = var.owner
-  }
+  tags = var.tags
 }
 
 output "alb_security_group_id" { value = aws_security_group.alb.id }
