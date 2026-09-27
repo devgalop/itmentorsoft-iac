@@ -52,6 +52,18 @@ module "database" {
   tags = local.common_tags
 }
 
+module "cache" {
+  source = "./modules/cache"
+  project = var.project
+  owner   = var.owner
+  subnet_ids = module.network.database_subnet_ids
+  engine_version = var.cache_engine_version
+  node_type = var.cache_node_type
+  security_group_id = module.security.cache_security_group_id
+  multi_az = var.multi_az
+  tags = local.common_tags
+}
+
 
 module "messaging" {
   source = "./modules/messaging"

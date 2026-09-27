@@ -88,3 +88,13 @@ variable "multi_az" {
   description = "Whether the RDS database should be multi-AZ"
   type        = bool
 }
+
+variable "cache_engine_version" {
+  description = "The engine version for the ElastiCache cluster"
+  type        = string
+}
+
+variable "cache_node_type" {
+  description = "The node type for the ElastiCache cluster"
+  type        = string
+}
