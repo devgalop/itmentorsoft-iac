@@ -48,3 +48,43 @@ variable "api_port" {
   description = "The port on which the API will listen"
   type        = number
 }
+
+variable "db_scheduler_start_time" {
+  description = "The start time for the RDS instance scheduler in cron format"
+  type        = string
+}
+
+variable "db_scheduler_stop_time" {
+  description = "The stop time for the RDS instance scheduler in cron format"
+  type        = string
+}
+
+variable "db_name" {
+  description = "The name of the RDS database"
+  type        = string
+}
+
+variable "username" {
+  description = "The master username for the RDS database"
+  type        = string
+}
+
+variable "password" {
+  description = "The master password for the RDS database"
+  type        = string
+}
+
+variable "db_instance_class" {
+  description = "The instance class for the RDS database"
+  type        = string
+}
+
+variable "db_engine_version" {
+  description = "The engine version for the RDS database"
+  type        = string
+}
+
+variable "multi_az" {
+  description = "Whether the RDS database should be multi-AZ"
+  type        = bool
+}

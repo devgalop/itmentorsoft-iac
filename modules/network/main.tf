@@ -43,7 +43,7 @@ resource "aws_subnet" "sbnapp" {
 }
 
 resource "aws_subnet" "sbndb" {
-  count = 1
+  count = 2
 
   vpc_id            = aws_vpc.vpcitmentorsoft.id
   cidr_block        = var.db_subnets[count.index]
