@@ -1,4 +1,10 @@
-
+locals {
+  common_tags = {
+    Environment = terraform.workspace
+    Owner       = var.owner
+    Project     = var.project
+  }
+}
 module "network" {
   source = "./modules/network"
   aws_region = var.aws_region
@@ -9,7 +15,7 @@ module "network" {
   public_subnets    = var.public_subnets
   app_subnets       = var.app_subnets
   db_subnets        = var.db_subnets
-  tags = var.tags
+  tags = local.common_tags
 }
 
 module "security" {
@@ -19,7 +25,7 @@ module "security" {
   vpc_id = module.network.vpc_id
   vpc_cidr = module.network.vpc_cidr
   api_port = var.api_port
-  tags    = var.tags
+  tags    = local.common_tags
 }
 
 module "messaging" {
@@ -27,5 +33,12 @@ module "messaging" {
   project = var.project
   owner   = var.owner
   queues  = var.queues
-  tags    = var.tags
+  tags    = local.common_tags
+}
+
+module "ecr" {
+  source = "./modules/ecr"
+  project = var.project
+  owner   = var.owner
+  tags    = local.common_tags
 }
