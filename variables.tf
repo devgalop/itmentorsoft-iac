@@ -64,16 +64,6 @@ variable "db_name" {
   type        = string
 }
 
-variable "username" {
-  description = "The master username for the RDS database"
-  type        = string
-}
-
-variable "password" {
-  description = "The master password for the RDS database"
-  type        = string
-}
-
 variable "db_instance_class" {
   description = "The instance class for the RDS database"
   type        = string
@@ -96,5 +86,50 @@ variable "cache_engine_version" {
 
 variable "cache_node_type" {
   description = "The node type for the ElastiCache cluster"
+  type        = string
+}
+
+variable "worker_cpu" {
+  description = "The CPU units for the worker containers (evaluator and notifier)"
+  type        = number
+}
+
+variable "worker_memory" {
+  description = "The memory (in MiB) for the worker containers (evaluator and notifier)"
+  type        = number
+}
+
+variable "api_cpu" {
+  description = "The CPU units for the API container"
+  type        = number
+}
+
+variable "api_memory" {
+  description = "The memory (in MiB) for the API container"
+  type        = number
+}
+
+variable "api_min_capacity" {
+  description = "The minimum number of API container instances"
+  type        = number
+}
+
+variable "api_max_capacity" {
+  description = "The maximum number of API container instances"
+  type        = number
+}
+
+variable "worker_desired_count" {
+  description = "The desired number of worker tasks (evaluator and notifier)"
+  type        = number
+}
+
+variable "db_username" {
+  description = "The master username for the RDS database"
+  type        = string
+}
+
+variable "db_password" {
+  description = "The master password for the RDS database"
   type        = string
 }

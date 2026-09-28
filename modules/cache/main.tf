@@ -28,3 +28,7 @@ resource "aws_elasticache_replication_group" "rg_valkey" {
   apply_immediately = false
   tags = var.tags
 }
+
+output "primary_endpoint" {
+  value = aws_elasticache_replication_group.rg_valkey.primary_endpoint_address
+}

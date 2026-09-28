@@ -141,6 +141,15 @@ output "ecr_repository_urls" {
     name => repository.repository_url
   }
 }
+output "ecr_image_api" {
+  value = aws_ecr_repository.this["itmentorsoft-back-api"].repository_url
+}
+output "ecr_image_evaluator" {
+  value = aws_ecr_repository.this["itmentorsoft-back-worker-evaluator"].repository_url
+}
+output "ecr_image_notifier" {
+  value = aws_ecr_repository.this["itmentorsoft-back-worker-notificator"].repository_url
+}
 
 
 

@@ -25,3 +25,12 @@ resource "aws_sqs_queue" "queue" {
 
   tags = var.tags
 }
+
+output "evaluation_queue_url" { value = aws_sqs_queue.queue["qualify"].url }
+output "classification_queue_url" { value = aws_sqs_queue.queue["classify"].url }
+output "classification_queue_arn" { value = aws_sqs_queue.queue["classify"].arn }
+output "notification_queue_url" { value = aws_sqs_queue.queue["notify"].url }
+output "audit_queue_url" { value = aws_sqs_queue.queue["audit"].url }
+output "evaluation_queue_arn" { value = aws_sqs_queue.queue["qualify"].arn }
+output "notification_queue_arn" { value = aws_sqs_queue.queue["notify"].arn }
+output "audit_queue_arn" { value = aws_sqs_queue.queue["audit"].arn }
