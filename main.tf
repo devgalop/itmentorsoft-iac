@@ -105,3 +105,13 @@ module "ecs" {
   audit_queue_url      = module.messaging.audit_queue_url
   tags = local.common_tags
 }
+
+module "api_gateway" {
+  source = "./modules/api_gateway"
+  project = var.project
+  owner   = var.owner
+  private_subnet_ids = module.network.app_subnet_ids
+  api_security_group = module.security.api_security_group_id
+  alb_listener_arn = module.ecs.alb_listener_arn
+  tags = local.common_tags
+}
