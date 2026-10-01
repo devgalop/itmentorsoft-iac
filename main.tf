@@ -115,3 +115,12 @@ module "api_gateway" {
   alb_listener_arn = module.ecs.alb_listener_arn
   tags = local.common_tags
 }
+
+module "audit" {
+  source = "./modules/audit"
+
+  project            = var.project
+  owner              = var.owner
+  audit_queue_arn    = module.messaging.audit_queue_arn
+  tags               = local.common_tags
+}
